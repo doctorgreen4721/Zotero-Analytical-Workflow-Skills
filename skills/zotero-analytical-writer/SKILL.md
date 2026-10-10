@@ -13,7 +13,70 @@ Keep the visible section order exactly as follows:
 
 `基本信息 → 一句话摘要 → 研究对象 → 研究方法（方法概述 → 方法分析） → 数据来源 → 研究结论 → 关联精读笔记 → 我的判断`
 
-Keep the template's table, field labels, heading levels, and frontmatter fields. Replace every retained placeholder with verified content; remove unused optional formula blocks, surplus finding/quote pairs, and placeholder related-note links. Do not add legacy headings such as `研究对象与问题`, `整体流程`, `数据与证据定位`, `局限与后续问题`, or `Zotero信息`. Put limitations only in `方法局限`、`数据局限` and `我的判断`.
+Keep the template's table, field labels, heading levels, and frontmatter fields. Keep applicable type-specific subsections within the existing main sections. Replace every retained placeholder with verified content; remove unused type modules, optional formula blocks, surplus finding/quote pairs, and placeholder related-note links. Do not add legacy main headings such as `研究对象与问题`, `整体流程`, `数据与证据定位`, `局限与后续问题`, or `Zotero信息`. Record detailed limitations in `方法局限`、`数据局限` and `我的判断`; keep necessary scope and conditions beside the claims they qualify.
+
+## 文献类型与阅读脉络
+
+先根据全文确定文献类型。不要只看标题。
+`paper_type` 使用“综述”“研究型”“混合”或“待确认”。
+材料不足时保留“待确认”，并说明缺少的证据。
+
+- 综述使用标有“综述”的模块。
+- 研究型论文使用标有“研究型”的模块。
+- 混合型论文保留两类必要模块。
+- 理论论文不套用模型训练或实验流程。
+- 当前 Vault 模板缺少类型模块时，在原主章节内补充。
+- 补充模块参考随附模板，保留本地字段和标题层级。
+- 同一事实只写一次，其他位置引用对应段落。
+
+综述须解释难题、研究分类和解题机制。
+记录代表学者、评价标准、共识与分歧。
+记录各类方法的适用条件和具体缺点。
+说明作者的综合判断、新见解和方法论贡献。
+区分被综述学者、综述作者和笔记作者的观点。
+转述结果标为“据本综述转述”。
+没有读过对应原研究时，不声称直接验证。
+
+研究型论文先从摘要和结论提取成果。
+再回溯支撑成果的数据、方法和使用条件。
+正文按研究操作顺序说明输入、操作和输出。
+区分既有方法、方法组合和本文创新点。
+分别说明训练条件与应用条件。
+记录量化效果、基线和比较条件。
+不将模板示例阶段当作论文实际步骤。
+
+## 受控中文与术语说明
+
+撰写或修改精读记录前，读取并使用 `ste-zh`。
+从当前技能目录定位该技能，不硬编码个人路径。
+若技能缺失，提示用户检查安装状态。
+继续按以下原则完成可执行的写作。
+不要声称已经调用缺失的技能。
+
+- 按 ASD-STE100 中文化原则撰写。
+- 解释性正文使用“中文-顺”档。
+- 操作步骤使用 Strict 档。
+- 每句只表达一件事，优先使用主动句。
+- 同一概念使用同一名称，删除套话。
+- 指令句以 25 字为目标，说明句以 40 字为目标。
+- 保留原文条件、否定、数值和不确定性。
+- 必要的精度优先于句长，保留长句时说明原因。
+- 这些原则不代表官方中文认证。
+
+所有专业术语须在正文首次出现处解释。
+所有专业缩写须在首次出现处给出全称和中文名称。
+定义须覆盖概念原理、本文作用和通俗解释。
+指标还须说明计算口径、单位和数值方向。
+术语表不能替代正文首次出现处的说明。
+原文未定义时，可补充有依据的“概念说明”。
+通用定义不得冒充论文采用的操作定义。
+
+原文确实未报告时，写“原文未报告”。
+当前材料不足时，写“当前材料不足，无法确认”。
+不要按常见做法补齐参数、步骤或数值。
+比较条件不同的数值分别记录，不直接排名。
+区分绝对差、相对变化和百分点。
+笔记作者自行计算时，标明公式和输入值。
 
 ## 职责与语料顺序
 
@@ -38,7 +101,7 @@ When a later Knowledge task asks for “all papers”, the Knowledge Maintainer 
 
 ## Frontmatter 与稳定身份
 
-Keep the template frontmatter (`title`、`aliases`、`tags`、`created`、`source`、`author`、`year`、`theme`、`study_area`、`data_source`、`methodology`、`core_variable`、`key_finding`、`relevance`) and replace its placeholders with verified values. Add the following identity and navigation fields after the template fields when the values are known:
+Keep the template frontmatter (`title`、`aliases`、`tags`、`created`、`source`、`author`、`year`、`theme`、`study_area`、`data_source`、`methodology`、`core_variable`、`key_finding`、`relevance`) and replace its placeholders with verified values. Also preserve `type`、`status`、`updated` and `paper_type` when the template includes them. Preserve an existing Note's `created` and `status`; update `updated` on a content change and add `paper_type` using the values above. Add the following identity and navigation fields after the template fields when the values are known:
 
 ```yaml
 type: literature-note
@@ -67,6 +130,9 @@ New Analytical Notes are written only to `02vault/<collection>/<paper>.md`; new 
 - 公式仅在原文可靠时保留；乱码或残片不强行解释，也不为占位符生成符号拆解。
 - 写入前检查 YAML、美元符号配对、`zotero://select/...` 和 PDF/Fulltext 入口。
 - 写入前检查标题层级、模板占位符是否清除、结论是否成对、公式是否闭合，以及 `fulltext_path` 与 Note↔Fulltext 双向入口是否存在。
+- 写入前检查文献类型、阅读脉络和术语首次说明。
+- 写入前检查量化结果的指标、单位和比较条件。
+- 使用 ste-zh 检查中文，不为缩短句子删掉限定。
 - `关联精读笔记` 只保留与研究问题、方法或结论存在直接关系的真实 Note；没有可确认的关联时，保留章节说明但移除示例链接。
 
 ## 写入与索引
