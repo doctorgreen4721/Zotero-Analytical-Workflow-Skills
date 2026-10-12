@@ -9,41 +9,17 @@ description: "使用 Zotero metadata、批注和可访问的全文证据，按�
 
 Resolve `vault_root` from the user-specified Vault or the current agent workspace that contains the target Note. For every Note creation or content update, first read the current Vault's own 精读模板 when it exists. Otherwise use the bundled fallback at `../../templates/论文精读模板.md`. The selected template is the structural authority for this task. Start a new Note from it; update an existing Note in place rather than introducing a parallel structure. All output paths must be real paths relative to `vault_root`, never machine-specific examples.
 
-Keep the visible section order exactly as follows:
+Keep the visible section order defined by the selected template. The bundled template uses:
 
-`基本信息 → 一句话摘要 → 研究对象 → 研究方法（方法概述 → 方法分析） → 数据来源 → 研究结论 → 关联精读笔记 → 我的判断`
+`基本信息 → 一句话摘要 → 研究对象 → 研究方法（方法概述 → 方法分析） → 数据来源 → 研究结论 → 我的判断`
 
-Keep the template's table, field labels, heading levels, and frontmatter fields. Keep applicable type-specific subsections within the existing main sections. Replace every retained placeholder with verified content; remove unused type modules, optional formula blocks, surplus finding/quote pairs, and placeholder related-note links. Do not add legacy main headings such as `研究对象与问题`, `整体流程`, `数据与证据定位`, `局限与后续问题`, or `Zotero信息`. Record detailed limitations in `方法局限`、`数据局限` and `我的判断`; keep necessary scope and conditions beside the claims they qualify.
+Keep the template's table, field labels, heading levels, and frontmatter fields. Replace every retained placeholder with verified content; remove unused optional formula blocks, surplus finding/quote pairs, and placeholder related-note links. Do not add main sections absent from the selected template unless the user requests them. Record limitations in `方法局限`、`数据局限` and `我的判断`; keep necessary scope and conditions beside the claims they qualify.
 
-## 文献类型与阅读脉络
+## 阅读深度
 
-先根据全文确定文献类型。不要只看标题。
-`paper_type` 使用“综述”“研究型”“混合”或“待确认”。
-材料不足时保留“待确认”，并说明缺少的证据。
-
-- 综述使用标有“综述”的模块。
-- 研究型论文使用标有“研究型”的模块。
-- 混合型论文保留两类必要模块。
-- 理论论文不套用模型训练或实验流程。
-- 当前 Vault 模板缺少类型模块时，在原主章节内补充。
-- 补充模块参考随附模板，保留本地字段和标题层级。
-- 同一事实只写一次，其他位置引用对应段落。
-
-综述须解释难题、研究分类和解题机制。
-记录代表学者、评价标准、共识与分歧。
-记录各类方法的适用条件和具体缺点。
-说明作者的综合判断、新见解和方法论贡献。
-区分被综述学者、综述作者和笔记作者的观点。
-转述结果标为“据本综述转述”。
-没有读过对应原研究时，不声称直接验证。
-
-研究型论文先从摘要和结论提取成果。
-再回溯支撑成果的数据、方法和使用条件。
-正文按研究操作顺序说明输入、操作和输出。
-区分既有方法、方法组合和本文创新点。
-分别说明训练条件与应用条件。
-记录量化效果、基线和比较条件。
-不将模板示例阶段当作论文实际步骤。
+默认使用简版模板。
+只有用户明确要求时，才增加综述或研究型论文的详细分析模块。
+根据论文实际内容填写，不强制增加文献类型字段。
 
 ## 受控中文与术语说明
 
@@ -101,7 +77,7 @@ When a later Knowledge task asks for “all papers”, the Knowledge Maintainer 
 
 ## Frontmatter 与稳定身份
 
-Keep the template frontmatter (`title`、`aliases`、`tags`、`created`、`source`、`author`、`year`、`theme`、`study_area`、`data_source`、`methodology`、`core_variable`、`key_finding`、`relevance`) and replace its placeholders with verified values. Also preserve `type`、`status`、`updated` and `paper_type` when the template includes them. Preserve an existing Note's `created` and `status`; update `updated` on a content change and add `paper_type` using the values above. Add the following identity and navigation fields after the template fields when the values are known:
+Keep the template frontmatter (`title`、`aliases`、`tags`、`created`、`source`、`author`、`year`、`theme`、`study_area`、`data_source`、`methodology`、`core_variable`、`key_finding`、`relevance`) and replace its placeholders with verified values. Preserve an existing Note's `created`, `status` and other valid metadata; update `updated` when that field already exists. Do not add `paper_type` unless the selected template or user requires it. Add the following identity and navigation fields after the template fields when the values are known:
 
 ```yaml
 type: literature-note
@@ -130,10 +106,10 @@ New Analytical Notes are written only to `02vault/<collection>/<paper>.md`; new 
 - 公式仅在原文可靠时保留；乱码或残片不强行解释，也不为占位符生成符号拆解。
 - 写入前检查 YAML、美元符号配对、`zotero://select/...` 和 PDF/Fulltext 入口。
 - 写入前检查标题层级、模板占位符是否清除、结论是否成对、公式是否闭合，以及 `fulltext_path` 与 Note↔Fulltext 双向入口是否存在。
-- 写入前检查文献类型、阅读脉络和术语首次说明。
+- 写入前检查术语首次说明。
 - 写入前检查量化结果的指标、单位和比较条件。
 - 使用 ste-zh 检查中文，不为缩短句子删掉限定。
-- `关联精读笔记` 只保留与研究问题、方法或结论存在直接关系的真实 Note；没有可确认的关联时，保留章节说明但移除示例链接。
+- 模板或既有笔记包含 `关联精读笔记` 时，只保留可确认的真实关联；不为简版模板新增该章节。
 
 ## 写入与索引
 
